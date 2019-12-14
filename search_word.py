@@ -20,11 +20,11 @@ result = {
 class SearchWord(Resource):
 
     def get(self, word):
-        self.do_search_baidu(word)
+        #self.do_search_baidu(word)
         self.do_search_bing(word)
-        self.do_search_google(word)
-        self.do_search_hunter(word)
-        self.do_search_yahoo(word)
+        #self.do_search_google(word)
+        #self.do_search_hunter(word)
+        # self.do_search_yahoo(word)
         return result
 
     # baidu
@@ -63,7 +63,7 @@ class SearchWord(Resource):
             'Accept-Language': 'en-us,en',
             'User-agent': self.get_user_agent()
         }
-        base_url = f'https://{self.server}/search?q=%40"{self.word}"&count=100&first=xx'
+        base_url = f'https://{self.server}/search?q=%40{self.word}&count=100&first=xx'
         urls = [base_url.replace("xx", str(num)) for num in range(0, self.limit, 100) if num <= self.limit]
         request = (grequests.get(url, headers=headers, timeout=5) for url in urls)
         responses = grequests.imap(request, size=5)
