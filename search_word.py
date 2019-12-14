@@ -20,10 +20,10 @@ result = {
 class SearchWord(Resource):
 
     def get(self, word):
-        # self.do_search_baidu(word)
+        self.do_search_baidu(word)
         self.do_search_bing(word)
-        # self.do_search_google(word)
-        # self.do_search_hunter(word)
+        self.do_search_google(word)
+        self.do_search_hunter(word)
         self.do_search_yahoo(word)
         return result
 
