@@ -7,8 +7,8 @@ class GoogleSearch:
     def __init__(self, word, limit):
         
         self.word = word
-        self.results_google = ''
-        self.total_results_google = ''
+        self.results = ''
+        self.total_results = ''
         self.server = 'www.google.com'
         self.quantity = '100'
         self.limit = limit
@@ -21,14 +21,14 @@ class GoogleSearch:
             urly = 'http://' + self.server + '/search?num=' + self.quantity + '&start=' + str(
                 self.counter) + '&hl=en&meta=&q=%40\"' + self.word + '\"'
             try:
-                headers = {'User-Agent': googleUA}
+                headers = {'User-Agent': get_user_agent()}
                 response = requests.get(urly, headers=headers)
             except Exception as e:
                 print(e)
 
-            self.results_google = response.text
+            self.results = response.text
 
-            if search(self.results_google):
+            if search(self.results):
                 try:
                     self.results = google_workaround(urly)
                     if isinstance(self.results, bool):
@@ -39,8 +39,8 @@ class GoogleSearch:
                     return
 
             time.sleep(getDelay())
-            self.total_results_google += self.results_google
+            self.total_results += self.results
             self.counter += 100
 
-        result['result_google'] = self.total_results_google
+        result['result_google'] = self.total_results
         print('OK - Google!')

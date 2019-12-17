@@ -5,7 +5,7 @@ import grequests
 class YahooSearch:
     def __init__(self, word, limit):
         self.word = word
-        self.total_results_yahoo = ''
+        self.total_results = ''
         self.server = 'search.yahoo.com'
         self.limit = limit
 
@@ -21,7 +21,7 @@ class YahooSearch:
         request = (grequests.get(url, headers=headers) for url in urls)
         responses = grequests.imap(request, size=5)
         for response in responses:
-            self.total_results_yahoo += response.content.decode('UTF-8')
+            self.total_results += response.content.decode('UTF-8')
 
-        result['result_yahoo'] = self.total_results_yahoo
+        result['result_yahoo'] = self.total_results
         print('OK - Yahoo!')

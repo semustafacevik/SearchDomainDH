@@ -9,7 +9,11 @@ api = Api(app)
 class SearchWordFree(Resource):
 
     def get(self, word):
-        
+
+        from SearchFunctions import linkedin
+        searchLinkedIn = linkedin.LinkedInSearch(word, 100)
+        searchLinkedIn.do_search_linkedin()
+    
         from SearchFunctions import bing
         searchBing = bing.BingSearch(word, 50)
         searchBing.do_search_bing()
@@ -27,13 +31,14 @@ class SearchWordFree(Resource):
 class SearchWordMember(Resource):
 
     def get(self, word):
+        
         from SearchFunctions import bing
         searchBing = bing.BingSearch(word, 500)
         searchBing.do_search_bing()
 
-        from SearchFunctions import google
-        searchGoogle = google.GoogleSearch(word, 500)
-        searchGoogle.do_search_google()
+        # from SearchFunctions import google
+        # searchGoogle = google.GoogleSearch(word, 500)
+        # searchGoogle.do_search_google()
 
         # from SearchFunctions import hunter
         # searchHunter = hunter.HunterSearch(word,100)

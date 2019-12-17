@@ -4,7 +4,7 @@ import grequests
 class BingSearch:
     def __init__(self, word, limit):
         self.word = word.replace(' ', '%20')
-        self.total_results_bing = ''
+        self.total_results = ''
         self.server = 'www.bing.com'
         self.hostname = 'www.bing.com'
         self.limit = limit
@@ -24,6 +24,6 @@ class BingSearch:
                    for url in urls)
         responses = grequests.imap(request, size=5)
         for response in responses:
-            self.total_results_bing += response.content.decode('UTF-8')
-        result['result_bing'] = self.total_results_bing
+            self.total_results += response.content.decode('UTF-8')
+        result['result_bing'] = self.total_results
         print('OK - Bing!')
