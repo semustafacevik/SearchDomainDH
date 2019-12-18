@@ -4,6 +4,7 @@ import grequests
 class HunterSearch:
 
     def __init__(self, word, limit):
+        
         self.word = word
         self.limit = limit
         self.key = 'd7bc4b0dd5729e754fc7b883f116e9b3ba6da0e3'

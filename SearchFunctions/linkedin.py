@@ -7,11 +7,10 @@ class LinkedInSearch:
 
     def __init__(self, word, limit):
         
-        self.word = word
+        self.word = word.replace(' ', '%20')
         self.results = ''
         self.total_results = ''
         self.server = 'www.google.com'
-        self.quantity = '100'
         self.limit = limit
         self.counter = 0
 

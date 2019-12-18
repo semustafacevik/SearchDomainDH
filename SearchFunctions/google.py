@@ -10,7 +10,6 @@ class GoogleSearch:
         self.results = ''
         self.total_results = ''
         self.server = 'www.google.com'
-        self.quantity = '100'
         self.limit = limit
         self.counter = 0
 
@@ -18,8 +17,7 @@ class GoogleSearch:
 
         print('Searching Google...')
         while self.counter <= self.limit and self.counter <= 1000:
-            urly = 'http://' + self.server + '/search?num=' + self.quantity + '&start=' + str(
-                self.counter) + '&hl=en&meta=&q=%40\"' + self.word + '\"'
+            urly = 'http://' + self.server + '/search?num=100&start=' + str(self.counter) + '&hl=en&meta=&q=%40\"' + self.word + '\"'
             try:
                 headers = {'User-Agent': get_user_agent()}
                 response = requests.get(urly, headers=headers)

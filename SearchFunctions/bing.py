@@ -3,16 +3,17 @@ import grequests
 
 class BingSearch:
     def __init__(self, word, limit):
+
         self.word = word.replace(' ', '%20')
         self.total_results = ''
         self.server = 'www.bing.com'
-        self.hostname = 'www.bing.com'
         self.limit = limit
 
     def do_search_bing(self):
+        
         print('Searcing Bing...')
         headers = {
-            'Host': self.hostname,
+            'Host': self.server,
             'Cookie': 'SRCHHPGUSR=ADLT=DEMOTE&NRSLT=50',
             'Accept-Language': 'en-us,en',
             'User-agent': get_user_agent()
