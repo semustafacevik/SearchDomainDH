@@ -11,6 +11,7 @@ result = {
     'result_linkedin' : '',
     'result_otx' : '',
     'result_portscanner' : '',
+    'result_threatcrowd' : '',
     'result_yahoo' : '',
 }
 

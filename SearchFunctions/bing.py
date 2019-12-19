@@ -26,5 +26,6 @@ class BingSearch:
         responses = grequests.imap(request, size=5)
         for response in responses:
             self.total_results += response.content.decode('UTF-8')
+        
         result['result_bing'] = self.total_results
         print('OK - Bing!')

@@ -10,9 +10,9 @@ class SearchWordFree(Resource):
 
     def get(self, word):
 
-        from SearchFunctions import portscanner
-        searchPortScan = portscanner.PortScanSearch(word)
-        searchPortScan.do_search_portscan()
+        from SearchFunctions import threatcrowd
+        searchThreatCrowd = threatcrowd.ThreatCrowdSearch(word)
+        searchThreatCrowd.do_search_threatcrowd()
 
         # from SearchFunctions import certspotter
         # searchCertSpotter = certspotter.CertSpotterSearch(word)
