@@ -9,6 +9,7 @@ result = {
     'result_google' : '',
     'result_hunter' : '',
     'result_linkedin' : '',
+    'result_otx' : '',
     'result_yahoo' : '',
 }
 
