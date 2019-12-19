@@ -10,9 +10,9 @@ class SearchWordFree(Resource):
 
     def get(self, word):
 
-        from SearchFunctions import otx
-        searchOTX = otx.OTXSearch(word)
-        searchOTX.do_search_otx()
+        from SearchFunctions import portscanner
+        searchPortScan = portscanner.PortScanSearch(word)
+        searchPortScan.do_search_portscan()
 
         # from SearchFunctions import certspotter
         # searchCertSpotter = certspotter.CertSpotterSearch(word)

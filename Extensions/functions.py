@@ -10,6 +10,7 @@ result = {
     'result_hunter' : '',
     'result_linkedin' : '',
     'result_otx' : '',
+    'result_portscanner' : '',
     'result_yahoo' : '',
 }
 
