@@ -10,9 +10,9 @@ class SearchWordFree(Resource):
 
     def get(self, word):
 
-        from SearchFunctions import threatcrowd
-        searchThreatCrowd = threatcrowd.ThreatCrowdSearch(word)
-        searchThreatCrowd.do_search_threatcrowd()
+        from SearchFunctions import virustotal
+        searchVirusTotal = virustotal.VirusTotalSearch(word)
+        searchVirusTotal.do_search_virustotal()
 
         # from SearchFunctions import certspotter
         # searchCertSpotter = certspotter.CertSpotterSearch(word)
