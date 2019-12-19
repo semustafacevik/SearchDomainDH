@@ -33,7 +33,7 @@ class GoogleSearch:
                         print('Google is blocking your ip and the workaround, returning')
                         return
                 except Exception:
-                    # google blocked, no useful result
+                    print('Google blocked, no useful result')
                     return
 
             time.sleep(getDelay())

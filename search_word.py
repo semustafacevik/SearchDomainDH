@@ -14,6 +14,10 @@ class SearchWordFree(Resource):
         searchCertSpotter = certspotter.CertSpotterSearch(word)
         searchCertSpotter.do_search_certspotter()
 
+        from SearchFunctions import certificate
+        searchCertificate = certificate.CertificateSearch(word)
+        searchCertificate.do_search_certificate()
+
         from SearchFunctions import linkedin
         searchLinkedIn = linkedin.LinkedInSearch(word, 100)
         searchLinkedIn.do_search_linkedin()

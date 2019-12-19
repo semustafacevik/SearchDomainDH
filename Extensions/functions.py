@@ -3,6 +3,13 @@ import random
 import requests
 
 result = {
+    'result_bing' : '',
+    'result_certificate' : '',
+    'result_certspotter' : '',
+    'result_google' : '',
+    'result_hunter' : '',
+    'result_linkedin' : '',
+    'result_yahoo' : '',
 }
 
 # user agents
@@ -255,36 +262,28 @@ def search(text: str) -> bool:
             return True
     return False
 
+# Function that makes a request on our behalf, if Google starts to block us
+def google_workaround(visit_url: str) -> Union[bool, str]:
+    import requests
+    url = 'https://websniffer.cc/'
+    data = {
+        'Cookie': '',
+        'url': visit_url,
+        'submit': 'Submit',
+        'type': 'GET&http=1.1',
+        'uak': str(random.randint(4, 8))  # select random UA to send to Google
+    }
+    response = requests.post(url, headers={'User-Agent': get_user_agent()}, data=data)
+    returned_html = response.text
+    if search(returned_html):
+        return True
+    if '&lt;html&gt;' in returned_html:
+        start_index = returned_html.index('&lt;html&gt;')
+    else:
+        start_index = returned_html.index('&lt;html')
 
-# def google_workaround(visit_url: str) -> Union[bool, str]:
-#     """
-#     Function that makes a request on our behalf, if Google starts to block us
-#     :param visit_url: Url to scrape
-#     :return: Correct html that can be parsed by BS4
-#     """
-#     url = 'https://websniffer.cc/'
-#     data = {
-#         'Cookie': '',
-#         'url': visit_url,
-#         'submit': 'Submit',
-#         'type': 'GET&http=1.1',
-#         'uak': str(random.randint(4, 8))  # select random UA to send to Google
-#     }
-#     response = requests.post(url, headers={'User-Agent': googleUA}, data=data)
-#     returned_html = response.text
-    
-#     if search(returned_html):
-#         # indicates that google is serving workaround a captcha
-#         return True
-#     # the html we get is malformed for BS4 as there are no greater than or less than signs
-#     if '&lt;html&gt;' in returned_html:
-#         start_index = returned_html.index('&lt;html&gt;')
-#     else:
-#         start_index = returned_html.index('&lt;html')
+    end_index = returned_html.index('&lt;/html&gt;') + 1
+    correct_html = returned_html[start_index:end_index]
 
-#     end_index = returned_html.index('&lt;/html&gt;') + 1
-#     correct_html = returned_html[start_index:end_index]
-#     # Slice list to get the response's html
-#     correct_html = ''.join([ch.strip().replace('&lt;', '<').replace('&gt;', '>') for ch in correct_html])
-#     print(correct_html)
-#     return correct_html
+    correct_html = ''.join([ch.strip().replace('&lt;', '<').replace('&gt;', '>') for ch in correct_html])
+    return correct_html

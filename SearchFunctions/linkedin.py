@@ -35,8 +35,7 @@ class LinkedInSearch:
                         print('Google is blocking your ip and the workaround, returning')
                         return
                 except Exception:
-                    print('first except pass')
-                    # google blocked, no useful result
+                    print('Google blocked, no useful result')
                     return
 
             time.sleep(getDelay())
