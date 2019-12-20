@@ -59,6 +59,25 @@ class Regexs:
         
         print('OK - File Urls!')
 
+
+    def getHostnames(self):
+
+        print('\nSearching Hostnames...')
+        result['resultHostnames'] = ''
+
+        reg_hosts = re.compile(r'[a-zA-Z0-9.-]*\.' + self.word)
+        self.temp = reg_hosts.findall(self.totalResult)
+        hostnames = self.unique()
+
+        for hostname in hostnames:
+            if(hostname.startswith('2f')):
+                hostname = hostname.replace('2f','')
+            result['resultHostnames'] += hostname + ' * '
+        
+        print(result['resultHostnames'])
+        print('OK - Hostnames!')
+
+
     
 
     def getTotalResult(self):

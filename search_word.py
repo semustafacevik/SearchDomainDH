@@ -53,7 +53,7 @@ class SearchWordFree(Resource):
         
         from Extensions import regexs
         reg = regexs.Regexs(word)
-        reg.getFileUrls()
+        reg.getHostnames()
              
         return result
 
