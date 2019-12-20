@@ -13,7 +13,7 @@ class HunterSearch:
 
     def do_search_hunter(self):
         
-        print('Searching Hunter...')       
+        print('\nSearching Hunter...')       
         request = grequests.get(self.database)
         response = grequests.map([request])
         self.total_results = response[0].content.decode('UTF-8')

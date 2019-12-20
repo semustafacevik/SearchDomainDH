@@ -15,7 +15,7 @@ class GoogleSearch:
 
     def do_search_google(self):
 
-        print('Searching Google...')
+        print('\nSearching Google...')
         while self.counter <= self.limit and self.counter <= 1000:
             urly = 'http://' + self.server + '/search?num=100&start=' + str(self.counter) + '&hl=en&meta=&q=%40\"' + self.word + '\"'
             try:

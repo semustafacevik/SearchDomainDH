@@ -15,7 +15,7 @@ class OTXSearch:
 
     def do_search_otx(self):
         
-        print("Searching OTX...")
+        print("\nSearching OTX...")
         base_url = f'https://otx.alienvault.com/api/v1/indicators/domain/{self.word}/passive_dns'
         headers = {'User-Agent': get_user_agent()}
         try:

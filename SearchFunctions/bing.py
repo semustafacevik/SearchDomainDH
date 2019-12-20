@@ -11,7 +11,7 @@ class BingSearch:
 
     def do_search_bing(self):
         
-        print('Searcing Bing...')
+        print('\nSearcing Bing...')
         headers = {
             'Host': self.server,
             'Cookie': 'SRCHHPGUSR=ADLT=DEMOTE&NRSLT=50',

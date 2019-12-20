@@ -12,7 +12,7 @@ class VirusTotalSearch:
 
     def do_search_virustotal(self):
 
-        print('Searching VirusTotal...')
+        print('\nSearching VirusTotal...')
         base_url = f'https://www.virustotal.com/ui/domains/{self.word}/subdomains?relationships=resolutions&cursor=STMwCi4%3D&limit=40'
         headers = {'User-Agent': get_user_agent()}
         res = requests.get(base_url, headers=headers)

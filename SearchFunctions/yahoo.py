@@ -12,7 +12,7 @@ class YahooSearch:
 
     def do_search_yahoo(self):
         
-        print('Searching Yahoo...')
+        print('\nSearching Yahoo...')
         base_url = f'https://{self.server}/search?p=%40{self.word}&b=xx&pz=100'
         headers = {
             'Host': self.server,

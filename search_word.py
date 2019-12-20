@@ -10,36 +10,51 @@ class SearchWordFree(Resource):
 
     def get(self, word):
 
-        from SearchFunctions import virustotal
-        searchVirusTotal = virustotal.VirusTotalSearch(word)
-        searchVirusTotal.do_search_virustotal()
-
-        # from SearchFunctions import certspotter
-        # searchCertSpotter = certspotter.CertSpotterSearch(word)
-        # searchCertSpotter.do_search_certspotter()
+        from SearchFunctions import bing
+        searchBing = bing.BingSearch(word, 50)
+        searchBing.do_search_bing()
 
         # from SearchFunctions import certificate
         # searchCertificate = certificate.CertificateSearch(word)
         # searchCertificate.do_search_certificate()
-
-        # from SearchFunctions import linkedin
-        # searchLinkedIn = linkedin.LinkedInSearch(word, 100)
-        # searchLinkedIn.do_search_linkedin()
-
-
-    ######################3
-        # from SearchFunctions import bing
-        # searchBing = bing.BingSearch(word, 50)
-        # searchBing.do_search_bing()
+        
+        # from SearchFunctions import certspotter
+        # searchCertSpotter = certspotter.CertSpotterSearch(word)
+        # searchCertSpotter.do_search_certspotter()
 
         # from SearchFunctions import google
         # searchGoogle = google.GoogleSearch(word, 20)
         # searchGoogle.do_search_google()
 
-        # from SearchFunctions import yahoo
-        # searchYahoo = yahoo.YahooSearch(word, 50)
-        # searchYahoo.do_search_yahoo()
+        # from SearchFunctions import linkedin
+        # searchLinkedIn = linkedin.LinkedInSearch(word, 100)
+        # searchLinkedIn.do_search_linkedin()
+
+        # from SearchFunctions import otx
+        # searchOTX = otx.OTXSearch(word)
+        # searchOTX.do_search_otx()
+
+        # from SearchFunctions import portscanner
+        # searchPortScan = portscanner.PortScanSearch(word)
+        # searchPortScan.do_search_portscan()
+
+        # from SearchFunctions import threatcrowd
+        # searchThreatCrowd = threatcrowd.ThreatCrowdSearch(word)
+        # searchThreatCrowd.do_search_threatcrowd()
+
+        # from SearchFunctions import virustotal
+        # searchVirusTotal = virustotal.VirusTotalSearch(word)
+        # searchVirusTotal.do_search_virustotal()
+
+        from SearchFunctions import yahoo
+        searchYahoo = yahoo.YahooSearch(word, 50)
+        searchYahoo.do_search_yahoo()
+
         
+        from Extensions import regexs
+        reg = regexs.Regexs(word)
+        reg.getFileUrls()
+             
         return result
 
 
@@ -62,6 +77,7 @@ class SearchWordMember(Resource):
         from SearchFunctions import yahoo
         searchYahoo = yahoo.YahooSearch(word, 500)
         searchYahoo.do_search_yahoo()
+
 
         return result
 

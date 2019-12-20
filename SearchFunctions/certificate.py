@@ -10,7 +10,7 @@ class CertificateSearch:
 
     def do_search_certificate(self):
 
-        print('Searching Certificate...')
+        print('\nSearching Certificate...')
         base_url = f'https://crt.sh/?q=%25.{self.word}&output=json'
         headers = {'User-Agent': get_user_agent()}
         try:

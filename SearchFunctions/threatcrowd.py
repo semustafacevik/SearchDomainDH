@@ -11,7 +11,7 @@ class ThreatCrowdSearch:
 
     def do_search_threatcrowd(self):
        
-        print('Searching ThreatCrowd...')
+        print('\nSearching ThreatCrowd...')
         base_url = f'https://www.threatcrowd.org/searchApi/v2/domain/report/?domain={self.word}'
         headers = {'User-Agent': get_user_agent()}
         try:
@@ -21,7 +21,6 @@ class ThreatCrowdSearch:
         except Exception as e:
             print(e)
         self.total_results += self.results
-        print(self.total_results)
 
         result['result_threatcrowd'] = self.total_results
         print('OK - ThreatCrowd!')

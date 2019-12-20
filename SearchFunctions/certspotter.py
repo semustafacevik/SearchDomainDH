@@ -10,7 +10,7 @@ class CertSpotterSearch:
 
     def do_search_certspotter(self):
 
-        print('Searching CertSpotter...')
+        print('\nSearching CertSpotter...')
         base_url = f'https://api.certspotter.com/v1/issuances?domain={self.word}&include_subdomains=true&expand=dns_names&expand=issuer&expand=cert'
         headers = {'User-Agent': get_user_agent()}
         try:

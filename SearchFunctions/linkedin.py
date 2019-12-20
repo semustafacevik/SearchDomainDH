@@ -16,7 +16,7 @@ class LinkedInSearch:
 
     def do_search_linkedin(self):
 
-        print('Searching LinkedIn...')
+        print('\nSearching LinkedIn...')
         while self.counter <= self.limit and self.counter <= 1000:
             urly = 'http://' + self.server + '/search?num=100&start=' + str(self.counter) + '&hl=en&meta=&q=site%3Alinkedin.com/in%20' + self.word
             try:

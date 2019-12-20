@@ -14,7 +14,7 @@ class PortScanSearch:
 
     def do_search_portscan(self):
 
-        print('Searching PortScan...')
+        print('\nSearching PortScan...')
         self.lock.acquire()
         for port in self.ports:
             try:
