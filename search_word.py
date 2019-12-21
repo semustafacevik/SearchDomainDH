@@ -26,9 +26,9 @@ class SearchWordFree(Resource):
         # searchGoogle = google.GoogleSearch(word, 20)
         # searchGoogle.do_search_google()
 
-        # from SearchFunctions import linkedin
-        # searchLinkedIn = linkedin.LinkedInSearch(word, 100)
-        # searchLinkedIn.do_search_linkedin()
+        from SearchFunctions import linkedin
+        searchLinkedIn = linkedin.LinkedInSearch(word, 100)
+        searchLinkedIn.do_search_linkedin()
 
         # from SearchFunctions import otx
         # searchOTX = otx.OTXSearch(word)
@@ -46,14 +46,14 @@ class SearchWordFree(Resource):
         # searchVirusTotal = virustotal.VirusTotalSearch(word)
         # searchVirusTotal.do_search_virustotal()
 
-        from SearchFunctions import yahoo
-        searchYahoo = yahoo.YahooSearch(word, 50)
-        searchYahoo.do_search_yahoo()
+        # from SearchFunctions import yahoo
+        # searchYahoo = yahoo.YahooSearch(word, 50)
+        # searchYahoo.do_search_yahoo()
 
         
         from Extensions import regexs
         reg = regexs.Regexs(word)
-        reg.getHostnames()
+        reg.getLinkedInProfiles()
              
         return result
 
