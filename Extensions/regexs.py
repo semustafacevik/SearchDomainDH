@@ -11,7 +11,6 @@ class Regexs:
         self.disinfectedResult = self.totalResult
         self.temp = []
 
-
     def cleanResult(self):
 
         self.disinfectedResult = self.disinfectedResult.replace("<title>", " ").replace("</title>", " ")\
@@ -44,6 +43,20 @@ class Regexs:
         for dirtyItem in dirtyItems:
             self.disinfectedResult = self.disinfectedResult.replace(dirtyItem, "")
 
+    def getEmails(self):
+        
+        print('\nSearching Emails...')
+        result['resultEmails'] = ''
+
+        regex_emails = re.compile(r"[\w\.\-]+@[\w\-]+[\.\w{2,3}]+")
+        self.temp = regex_emails.findall(self.totalResult)
+        emails = self.unique()
+
+        for email in emails:
+            result['resultEmails'] += email + ' * '
+        
+        print('OK - Emails!')
+    
     def getFileUrls(self):
 
         print('\nSearching File Urls...')
@@ -89,7 +102,6 @@ class Regexs:
         for link in self.temp:
             result['resultLinkedInLinks'] += 'https://www.linkedin.com' + link + ' * '
         
-        print(result['resultLinkedInLinks'])
         print('OK - LinkedIn Links!')
 
 
@@ -107,8 +119,10 @@ class Regexs:
             if profile != " ":
                 result['resultLinkedInProfiles'] += profile + ' * '
 
-        print(result['resultLinkedInProfiles'])
         print('OK - LinkedIn Profiles!')
+
+
+    
 
 
     def getTotalResult(self):
