@@ -11,6 +11,7 @@ class BingSearch:
 
     def do_search_bing(self):
         
+        print('\n****  Searching ' + self.word + '  ****')
         print('\nSearcing Bing...')
         headers = {
             'Host': self.server,
@@ -21,8 +22,7 @@ class BingSearch:
         base_url = f'https://{self.server}/search?q=%40{self.word}&count=100&first=xx'
         urls = [base_url.replace("xx", str(num)) for num in range(
             0, self.limit, 100) if num <= self.limit]
-        request = (grequests.get(url, headers=headers, timeout=5)
-                   for url in urls)
+        request = (grequests.get(url, headers=headers, timeout=5)for url in urls)
         responses = grequests.imap(request, size=5)
         for response in responses:
             self.total_results += response.content.decode('UTF-8')

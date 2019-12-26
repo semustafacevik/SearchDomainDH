@@ -10,15 +10,17 @@ class CertificateSearch:
 
     def do_search_certificate(self):
 
-        print('\nSearching Certificate...')
-        base_url = f'https://crt.sh/?q=%25.{self.word}&output=json'
+        print('\nSearcing Certifacate...')
+        hostnames = set()
+        url = f'https://crt.sh/?q=%25.{self.word}&output=json'
         headers = {'User-Agent': get_user_agent()}
-        try:
-            response = requests.get(base_url, headers=headers)
-            self.total_results = response.text
-        
-        except Exception as e:
-            print(e)
+        request = requests.get(url, headers=headers, timeout=5)
+        if request.ok:
+            response = request.json()
+            hostnames = set([dct['name_value'][2:] if '*.' == dct['name_value'][:2] else dct['name_value'] for dct in response])
+
+        for hostname in hostnames:
+            self.total_results += hostname + " * "
 
         result['result_certificate'] = self.total_results
         print('OK - Certificate!')

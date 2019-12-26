@@ -17,9 +17,9 @@ class GoogleSearch:
 
         print('\nSearching Google...')
         while self.counter <= self.limit and self.counter <= 1000:
-            urly = 'http://' + self.server + '/search?num=100&start=' + str(self.counter) + '&hl=en&meta=&q=%40\"' + self.word + '\"'
+            urly = 'http://' + self.server + '/search?num=100&start=' + str(self.counter) + '&hl=en&meta=&q=%40' + self.word
             try:
-                headers = {'User-Agent': get_user_agent()}
+                headers = {'User-Agent': googleUA}
                 response = requests.get(urly, headers=headers)
             except Exception as e:
                 print(e)
@@ -30,12 +30,12 @@ class GoogleSearch:
                 try:
                     self.results = google_workaround(urly)
                     if isinstance(self.results, bool):
-                        print('Google is blocking your ip and the workaround, returning')
+                        print('Google is blocking your ip and the workaround, returning.')
                         return
                 except Exception:
-                    print('Google blocked, no useful result')
-                    return
-
+                    print('Google blocked, no useful result.')
+                return
+                
             time.sleep(getDelay())
             self.total_results += self.results
             self.counter += 100

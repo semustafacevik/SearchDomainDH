@@ -7,16 +7,25 @@ class CertSpotterSearch:
         
         self.word = word
         self.total_results = ''
+        self.total_hosts = set()
 
     def do_search_certspotter(self):
 
         print('\nSearching CertSpotter...')
+
         base_url = f'https://api.certspotter.com/v1/issuances?domain={self.word}&include_subdomains=true&expand=dns_names&expand=issuer&expand=cert'
         headers = {'User-Agent': get_user_agent()}
         try:
-            response = requests.get(base_url, headers=headers)
-            self.total_results = response.text
-        
+            request = requests.get(base_url, headers=headers)
+            response = request.json()
+            for dct in response:
+                for key, value in dct.items():
+                    if key == 'dns_names':
+                        self.total_hosts.update({name for name in value if name})
+
+            for hostname in self.total_hosts:
+                self.total_results += hostname + " * "
+
         except Exception as e:
             print(e)
 

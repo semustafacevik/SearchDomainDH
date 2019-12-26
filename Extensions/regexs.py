@@ -1,6 +1,7 @@
 from Extensions.functions import *
 import re
 
+
 class Regexs:
 
     def __init__(self, word):
@@ -9,13 +10,30 @@ class Regexs:
         self.totalResult = ''
         self.getTotalResult()
         self.disinfectedResult = self.totalResult
+        self.cleanResult()
         self.temp = []
 
     def cleanResult(self):
 
-        self.disinfectedResult = self.disinfectedResult.replace("<title>", " ").replace("</title>", " ")\
-            .replace("<p>", " ").replace("/p", " ").replace("<cite>", " ").replace("</cite>", " ")\
-            .replace("&quot", " ").replace("&nbsp", " ").replace("<span>", " ").replace("</span>", " ")
+        dirtyItems = [
+            "<title",
+            "</title>",
+            "<p",
+            "</p>",
+            "<div",
+            "</div>",
+            "<cite",
+            "</cite>",
+            "&quot;",
+            "&nbsp;",
+            "&#32",
+            "q=",
+            "x22@",
+            "<span",
+            "</span>"]
+
+        for dirtyItem in dirtyItems:
+            self.disinfectedResult = self.disinfectedResult.replace(dirtyItem, " ")
 
         dirtyItems = [
             "<em>",
@@ -46,28 +64,28 @@ class Regexs:
     def getEmails(self):
         
         print('\nSearching Emails...')
-        result['resultEmails'] = ''
+        result_response['resultEmails'] = ''
 
-        regex_emails = re.compile(r"[\w\.\-]+@[\w\-]+[\.\w{2,3}]+")
-        self.temp = regex_emails.findall(self.totalResult)
+        regex_emails = re.compile(r"[\w_-]+(?:\.[\w_-]+)*@(?:[\w0-9](?:[\w0-9-]*[\w0-9])?\.)+[\w0-9](?:[\w0-9-]*[\w0-9])")
+        self.temp = regex_emails.findall(self.disinfectedResult)
         emails = self.unique()
 
         for email in emails:
-            result['resultEmails'] += email + ' * '
+            result_response['resultEmails'] += email + ' * '
         
         print('OK - Emails!')
     
     def getFileUrls(self):
 
         print('\nSearching File Urls...')
-        result['resultFileUrls'] = ''
+        result_response['resultFileUrls'] = ''
 
         regex_fileUrls = re.compile('<a href="(.*?)"')
         self.temp = regex_fileUrls.findall(self.totalResult)
         allUrls = self.unique()
         for url in allUrls:
             if (url.count('doc') or url.count('ppt') or url.count('pdf') or url.count('xls') or url.count('csv')) and not url.count('translat') :
-                result['resultFileUrls'] += url + ' * '
+                result_response['resultFileUrls'] += url + ' * '
             else:
                 pass
         
@@ -77,30 +95,29 @@ class Regexs:
     def getHostnames(self):
 
         print('\nSearching Hostnames...')
-        result['resultHostnames'] = ''
+        result_response['resultHostnames'] = ''
 
         regex_hostnames = re.compile(r'[a-zA-Z0-9.-]*\.' + self.word)
         self.temp = regex_hostnames.findall(self.totalResult)
         hostnames = self.unique()
         for hostname in hostnames:
-            if(hostname.startswith('2f')):
-                hostname = hostname.replace('2f','')
-            result['resultHostnames'] += hostname + ' * '
-        
+            if(not hostname.startswith('2f') and not hostname[0].isdigit()):
+                result_response['resultHostnames'] += hostname + ' * '
+
         print('OK - Hostnames!')
 
 
     def getLinkedInLinks(self):
 
         print('\nSearching LinkedIn Links...')
-        result['resultLinkedInLinks'] = ''
+        result_response['resultLinkedInLinks'] = ''
 
         linkedInResult = result['result_linkedin']
         linkedInResult = linkedInResult.replace('tr.linkedin.com', 'www.linkedin.com')
         regex_linkedInLinks = re.compile(r"url=https:\/\/www\.linkedin.com(.*?)&")
         self.temp = regex_linkedInLinks.findall(linkedInResult)
         for link in self.temp:
-            result['resultLinkedInLinks'] += 'https://www.linkedin.com' + link + ' * '
+            result_response['resultLinkedInLinks'] += 'https://www.linkedin.com' + link + ' * '
         
         print('OK - LinkedIn Links!')
 
@@ -108,7 +125,7 @@ class Regexs:
     def getLinkedInProfiles(self):
 
         print('\nSearching LinkedIn Profiles...')
-        result['resultLinkedInProfiles'] = ''
+        result_response['resultLinkedInProfiles'] = ''
 
         linkedInResult = result['result_linkedin']
         linkedInResult = linkedInResult.replace('&amp;', '&')
@@ -117,13 +134,9 @@ class Regexs:
         for profile in (self.temp):
             profile = profile.replace(' | LinkedIn', '').replace(' - LinkedIn', '')
             if profile != " ":
-                result['resultLinkedInProfiles'] += profile + ' * '
+                result_response['resultLinkedInProfiles'] += profile + ' * '
 
         print('OK - LinkedIn Profiles!')
-
-
-    
-
 
     def getTotalResult(self):
         for value in result.values():

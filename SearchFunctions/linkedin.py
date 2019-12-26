@@ -17,10 +17,11 @@ class LinkedInSearch:
     def do_search_linkedin(self):
 
         print('\nSearching LinkedIn...')
+        result['result_linkedin'] = ''
         while self.counter <= self.limit and self.counter <= 1000:
             urly = 'http://' + self.server + '/search?num=100&start=' + str(self.counter) + '&hl=en&meta=&q=site%3Alinkedin.com/in%20' + self.word
             try:
-                headers = {'User-Agent': get_user_agent()}
+                headers = {'User-Agent': googleUA}
                 response = requests.get(urly, headers=headers)
                 
             except Exception as e:
@@ -35,9 +36,9 @@ class LinkedInSearch:
                         print('Google is blocking your ip and the workaround, returning')
                         return
                 except Exception:
-                    print('Google blocked, no useful result')
+                    print('Google blocked, no useful result.')
                     return
-
+                
             time.sleep(getDelay())
             self.total_results += self.results
             self.counter += 100

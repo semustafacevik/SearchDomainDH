@@ -9,7 +9,8 @@ class OTXSearch:
         self.word = word
         self.results = ''
         self.t_result = ''
-        self.total_results = ''
+        self.total_results_ip = ''
+        self.total_results_host = ''
         self.totalhosts = set()
         self.totalips = set()
 
@@ -33,9 +34,12 @@ class OTXSearch:
         self.totalips: set = {ip['address'] for ip in dct['passive_dns'] if 'NXDOMAIN' not in ip['address']}
 
         for ip in self.totalips:
-            self.total_results += ip + " * "
+            if(ip[0].isdigit()):
+                self.total_results_ip += ip + " * "
         for host in self.totalhosts:
-            self.total_results += host + " * "
+            self.total_results_host += host + " * "
 
-        result['result_otx'] = self.total_results
+        result['result_otx'] = self.total_results_host
+        result_response['resultIPs'] = self.total_results_ip
+
         print('OK - OTX!')

@@ -33,5 +33,5 @@ class PortScanSearch:
         if(len(self.ports)) == 0:
             print("No ports found on host: {0}".format(host))
 
-        result['result_portscanner'] = self.openports
+        result_response['resultPorts'] = self.openports
         print('OK - PortScanner!')
