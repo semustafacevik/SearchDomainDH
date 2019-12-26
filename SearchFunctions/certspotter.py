@@ -24,7 +24,7 @@ class CertSpotterSearch:
                         self.total_hosts.update({name for name in value if name})
 
             for hostname in self.total_hosts:
-                self.total_results += hostname + " * "
+                self.total_results += '¨' + hostname
 
         except Exception as e:
             print(e)

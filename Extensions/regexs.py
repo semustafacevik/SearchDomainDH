@@ -30,7 +30,11 @@ class Regexs:
             "q=",
             "x22@",
             "<span",
-            "</span>"]
+            "</span>",
+            "mail",
+            "Mail",
+            "posta",
+            "Posta"]
 
         for dirtyItem in dirtyItems:
             self.disinfectedResult = self.disinfectedResult.replace(dirtyItem, " ")
@@ -71,7 +75,8 @@ class Regexs:
         emails = self.unique()
 
         for email in emails:
-            result_response['resultEmails'] += email + ' * '
+            #################################if(email.count(hhtp))
+            result_response['resultEmails'] += '¨' + email
         
         print('OK - Emails!')
     
@@ -85,7 +90,7 @@ class Regexs:
         allUrls = self.unique()
         for url in allUrls:
             if (url.count('doc') or url.count('ppt') or url.count('pdf') or url.count('xls') or url.count('csv')) and not url.count('translat') :
-                result_response['resultFileUrls'] += url + ' * '
+                result_response['resultFileUrls'] += '¨' + url
             else:
                 pass
         
@@ -102,7 +107,7 @@ class Regexs:
         hostnames = self.unique()
         for hostname in hostnames:
             if(not hostname.startswith('2f') and not hostname[0].isdigit()):
-                result_response['resultHostnames'] += hostname + ' * '
+                result_response['resultHostnames'] += '¨' + hostname
 
         print('OK - Hostnames!')
 
@@ -117,7 +122,7 @@ class Regexs:
         regex_linkedInLinks = re.compile(r"url=https:\/\/www\.linkedin.com(.*?)&")
         self.temp = regex_linkedInLinks.findall(linkedInResult)
         for link in self.temp:
-            result_response['resultLinkedInLinks'] += 'https://www.linkedin.com' + link + ' * '
+            result_response['resultLinkedInLinks'] += '¨' + 'https://www.linkedin.com' + link
         
         print('OK - LinkedIn Links!')
 
@@ -134,7 +139,7 @@ class Regexs:
         for profile in (self.temp):
             profile = profile.replace(' | LinkedIn', '').replace(' - LinkedIn', '')
             if profile != " ":
-                result_response['resultLinkedInProfiles'] += profile + ' * '
+                result_response['resultLinkedInProfiles'] += '¨' + profile
 
         print('OK - LinkedIn Profiles!')
 

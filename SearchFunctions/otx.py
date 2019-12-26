@@ -35,9 +35,9 @@ class OTXSearch:
 
         for ip in self.totalips:
             if(ip[0].isdigit()):
-                self.total_results_ip += ip + " * "
+                self.total_results_ip += '¨' + ip
         for host in self.totalhosts:
-            self.total_results_host += host + " * "
+            self.total_results_host += '¨' + host
 
         result['result_otx'] = self.total_results_host
         result_response['resultIPs'] = self.total_results_ip

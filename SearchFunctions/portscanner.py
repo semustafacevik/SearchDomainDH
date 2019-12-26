@@ -22,7 +22,7 @@ class PortScanSearch:
                 connect.settimeout(2)
                 p_result = connect.connect_ex((self.host, int(port)))
                 if p_result == 0:
-                    self.openports += str(port) + " * "
+                    self.openports += '¨' + str(port)
                 connect.close()
 
             except Exception as e:
