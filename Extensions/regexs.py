@@ -75,8 +75,8 @@ class Regexs:
         emails = self.unique()
 
         for email in emails:
-            #################################if(email.count(hhtp))
-            result_response['resultEmails'] += '¨' + email
+            if(not email.count('http') and not email.count('www')):
+                result_response['resultEmails'] += '¨' + email
         
         print('OK - Emails!')
     

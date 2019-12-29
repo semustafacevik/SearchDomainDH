@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import reqparse, abort, Api, Resource
+from datetime import datetime
 from Extensions.functions import *
 from Extensions.regexs import * 
 from SearchFunctions import *
@@ -11,8 +12,11 @@ class SearchWordFree(Resource):
 
     def get(self, word):
 
+        result_response['searchQuery'] = word
+        result_response['searchDate'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
         from SearchFunctions import bing
-        searchBing = bing.BingSearch(word, 500)
+        searchBing = bing.BingSearch(word, 50)
         searchBing.do_search_bing()
 
         from SearchFunctions import certificate
@@ -24,11 +28,11 @@ class SearchWordFree(Resource):
         searchCertSpotter.do_search_certspotter()
 
         from SearchFunctions import google
-        searchGoogle = google.GoogleSearch(word, 500)
+        searchGoogle = google.GoogleSearch(word, 50)
         searchGoogle.do_search_google()
 
         from SearchFunctions import linkedin
-        searchLinkedIn = linkedin.LinkedInSearch(word, 500)
+        searchLinkedIn = linkedin.LinkedInSearch(word, 50)
         searchLinkedIn.do_search_linkedin()
 
         from SearchFunctions import otx
@@ -48,7 +52,7 @@ class SearchWordFree(Resource):
         searchVirusTotal.do_search_virustotal()
 
         from SearchFunctions import yahoo
-        searchYahoo = yahoo.YahooSearch(word, 500)
+        searchYahoo = yahoo.YahooSearch(word, 50)
         searchYahoo.do_search_yahoo()
 
         rgx = Regexs(word)
@@ -78,7 +82,7 @@ class SearchWordMember(Resource):
         # searchHunter.do_search_hunter()
 
         from SearchFunctions import yahoo
-        searchYahoo = yahoo.YahooSearch(word, 500)
+        searchYahoo = yahoo.YahooSearch(word, 50)
         searchYahoo.do_search_yahoo()
 
 
