@@ -9,6 +9,31 @@ app = Flask(__name__)
 api = Api(app)
 
 class SearchWordFree(Resource):
+    def get(self, word):
+
+        result_response['searchQuery'] = word
+        result_response['searchDate'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        from SearchFunctions import bing
+        searchBing = bing.BingSearch(word, 50)
+        searchBing.do_search_bing()
+
+        from SearchFunctions import google
+        searchGoogle = google.GoogleSearch(word, 20)
+        searchGoogle.do_search_google()
+
+        from SearchFunctions import yahoo
+        searchYahoo = yahoo.YahooSearch(word, 50)
+        searchYahoo.do_search_yahoo()
+
+        regex = Regexs(word)
+        regex.getEmails()
+
+        print("\n****  FINISHED!  ****\n")
+             
+        return result_response
+
+class SearchWordMember(Resource):
 
     def get(self, word):
 
@@ -61,33 +86,10 @@ class SearchWordFree(Resource):
         rgx.getHostnames()
         rgx.getLinkedInLinks()
         rgx.getLinkedInProfiles()
+
+        print("\n****  FINISHED!  ****\n")
              
         return result_response
-
-
-class SearchWordMember(Resource):
-
-    def get(self, word):
-        
-        from SearchFunctions import bing
-        searchBing = bing.BingSearch(word, 500)
-        searchBing.do_search_bing()
-
-        from SearchFunctions import google
-        searchGoogle = google.GoogleSearch(word, 500)
-        searchGoogle.do_search_google()
-
-        # from SearchFunctions import hunter
-        # searchHunter = hunter.HunterSearch(word,100)
-        # searchHunter.do_search_hunter()
-
-        from SearchFunctions import yahoo
-        searchYahoo = yahoo.YahooSearch(word, 50)
-        searchYahoo.do_search_yahoo()
-
-
-        return result
-
 
 api.add_resource(SearchWordFree, '/search/<word>')
 api.add_resource(SearchWordMember, '/membersearch/<word>')

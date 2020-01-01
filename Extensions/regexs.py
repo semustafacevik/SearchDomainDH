@@ -76,7 +76,7 @@ class Regexs:
 
         for email in emails:
             if(not email.count('http') and not email.count('www')):
-                result_response['resultEmails'] += '¨' + email
+                result_response['resultEmails'] += '¨' + email.lower()
         
         print('OK - Emails!')
     
