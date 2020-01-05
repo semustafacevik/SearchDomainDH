@@ -24,7 +24,8 @@ class LinkedInSearch:
                 response = requests.get(urly, headers=headers)
                 
             except Exception as e:
-                print(e) 
+                print(e)
+                break
             
             self.results = response.text
            

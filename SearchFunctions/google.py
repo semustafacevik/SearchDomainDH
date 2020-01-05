@@ -23,6 +23,7 @@ class GoogleSearch:
                 response = requests.get(urly, headers=headers)
             except Exception as e:
                 print(e)
+                break
 
             self.results = response.text
 

@@ -13,6 +13,8 @@ class SearchWordFree(Resource):
 
         result_response['searchQuery'] = word
         result_response['searchDate'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        from requests import get
+        result_response['searchIP'] = get('https://api.ipify.org').text
 
         from SearchFunctions import bing
         searchBing = bing.BingSearch(word, 50)
@@ -39,9 +41,11 @@ class SearchWordMember(Resource):
 
         result_response['searchQuery'] = word
         result_response['searchDate'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        from requests import get
+        result_response['searchIP'] = get('https://api.ipify.org').text
 
         from SearchFunctions import bing
-        searchBing = bing.BingSearch(word, 50)
+        searchBing = bing.BingSearch(word, 200)
         searchBing.do_search_bing()
 
         from SearchFunctions import certificate
@@ -53,11 +57,11 @@ class SearchWordMember(Resource):
         searchCertSpotter.do_search_certspotter()
 
         from SearchFunctions import google
-        searchGoogle = google.GoogleSearch(word, 50)
+        searchGoogle = google.GoogleSearch(word, 90)
         searchGoogle.do_search_google()
 
         from SearchFunctions import linkedin
-        searchLinkedIn = linkedin.LinkedInSearch(word, 50)
+        searchLinkedIn = linkedin.LinkedInSearch(word, 90)
         searchLinkedIn.do_search_linkedin()
 
         from SearchFunctions import otx
@@ -77,7 +81,7 @@ class SearchWordMember(Resource):
         searchVirusTotal.do_search_virustotal()
 
         from SearchFunctions import yahoo
-        searchYahoo = yahoo.YahooSearch(word, 50)
+        searchYahoo = yahoo.YahooSearch(word, 200)
         searchYahoo.do_search_yahoo()
 
         rgx = Regexs(word)

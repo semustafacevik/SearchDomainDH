@@ -18,9 +18,11 @@ class ThreatCrowdSearch:
             request = grequests.get(base_url, headers=headers)
             data = grequests.map([request])
             self.results = data[0].content.decode('UTF-8')
+
+            self.total_results += self.results
+            result['result_threatcrowd'] = self.total_results
+
         except Exception as e:
             print(e)
-        self.total_results += self.results
-
-        result['result_threatcrowd'] = self.total_results
+            
         print('OK - ThreatCrowd!')

@@ -26,8 +26,9 @@ class CertSpotterSearch:
             for hostname in self.total_hosts:
                 self.total_results += '¨' + hostname
 
+            result['result_certspotter'] = self.total_results         
+
         except Exception as e:
             print(e)
 
-        result['result_certspotter'] = self.total_results
         print('OK - CertSpotter!')

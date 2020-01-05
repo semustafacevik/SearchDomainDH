@@ -72,6 +72,7 @@ class Regexs:
 
         regex_emails = re.compile(r"[\w_-]+(?:\.[\w_-]+)*@(?:[\w0-9](?:[\w0-9-]*[\w0-9])?\.)+[\w0-9](?:[\w0-9-]*[\w0-9])")
         self.temp = regex_emails.findall(self.disinfectedResult)
+        
         emails = self.unique()
 
         for email in emails:
@@ -87,8 +88,10 @@ class Regexs:
 
         regex_fileUrls = re.compile('<a href="(.*?)"')
         self.temp = regex_fileUrls.findall(self.totalResult)
-        allUrls = self.unique()
-        for url in allUrls:
+        
+        fileUrls = self.unique()
+        
+        for url in fileUrls:
             if (url.count('doc') or url.count('ppt') or url.count('pdf') or url.count('xls') or url.count('csv')) and not url.count('translat') :
                 result_response['resultFileUrls'] += '¨' + url
             else:
@@ -104,7 +107,9 @@ class Regexs:
 
         regex_hostnames = re.compile(r'[a-zA-Z0-9.-]*\.' + self.word)
         self.temp = regex_hostnames.findall(self.totalResult)
+        
         hostnames = self.unique()
+        
         for hostname in hostnames:
             if(not hostname.startswith('2f') and not hostname[0].isdigit()):
                 result_response['resultHostnames'] += '¨' + hostname
@@ -119,9 +124,16 @@ class Regexs:
 
         linkedInResult = result['result_linkedin']
         linkedInResult = linkedInResult.replace('tr.linkedin.com', 'www.linkedin.com')
-        regex_linkedInLinks = re.compile(r"url=https:\/\/www\.linkedin.com(.*?)&")
+
+        regex_linkedInLinks = re.compile(r"=\"https:\/\/www.linkedin.com(.*?)\"")
         self.temp = regex_linkedInLinks.findall(linkedInResult)
-        for link in self.temp:
+        
+        regex_linkedInLinks = re.compile(r"=https:\/\/www.linkedin.com(.*?)&")
+        self.temp += regex_linkedInLinks.findall(linkedInResult)
+
+        linkedInLinks = self.unique()
+
+        for link in linkedInLinks:
             result_response['resultLinkedInLinks'] += '¨' + 'https://www.linkedin.com' + link
         
         print('OK - LinkedIn Links!')
@@ -136,7 +148,10 @@ class Regexs:
         linkedInResult = linkedInResult.replace('&amp;', '&')
         regex_linkedInProfiles = re.compile(r"[\w.,_ |\\/&-]* [\-|\|]* LinkedIn")
         self.temp = regex_linkedInProfiles.findall(linkedInResult)
-        for profile in (self.temp):
+
+        linkedInProfiles = self.unique()
+
+        for profile in linkedInProfiles:
             profile = profile.replace(' | LinkedIn', '').replace(' - LinkedIn', '')
             if profile != " ":
                 result_response['resultLinkedInProfiles'] += '¨' + profile
