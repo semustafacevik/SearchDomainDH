@@ -76,7 +76,7 @@ class Regexs:
         emails = self.unique()
 
         for email in emails:
-            if(not email.count('http') and not email.count('www')):
+            if(not email.count('http') and not email.count('www') and len(email)<30+len(self.word)):
                 result_response['resultEmails'] += '¨' + email.lower()
         
         print('OK - Emails!')
